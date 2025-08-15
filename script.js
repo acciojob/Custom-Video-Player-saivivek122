@@ -7,6 +7,9 @@ const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 let volumeBtn=document.getElementById("volumebtn");
+let playbackRateButton =document.getElementById("playbackratebutton")
+let backwardButton=document.getElementById("backwardbutton")
+let forwardButton=document.getElementById("forwardbutton")
 let time=0;
 toggle.addEventListener("click",()=>{
 	if(video.paused || video.ended){
@@ -29,7 +32,23 @@ video.addEventListener("loadedmetadata",()=>{
 })
 
 video.addEventListener("timeupdate",()=>{
-    progressBar.style.flexBasis=video.currentTime+"px";
-	console.log(video.curre);
+	let videoPercentage=(video.currentTime/time)*100;
+    progressBar.style.flexBasis=videoPercentage+"%";
+	console.log(video.currentTime);
 	
+})
+
+playbackRateButton.addEventListener("input",()=>{
+	video.playbackRate=playbackRateButton.value;
+})
+
+
+backwardButton.addEventListener("click",()=>{
+	let backwardTime=backwardButton.value;
+	video.currentTime=video.currentTime-backwardTime;
+})
+
+forwardButton.addEventListener("click",()=>{
+	let forwardTime=forwardButton.value;
+	video.currentTime=video.currentTime+(forwardTime);
 })
